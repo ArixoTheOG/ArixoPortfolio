@@ -1,8 +1,8 @@
 {
-  "name": "arshu-portfolio",
+  "name": "arixo-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Arshu — Minecraft Developer & SysAdmin. Premium interactive portfolio.",
+  "description": "Arixo — Minecraft Developer & SysAdmin. Premium interactive portfolio.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
