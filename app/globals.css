@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================================================================
+   Base tokens
+   ================================================================== */
+:root {
+  color-scheme: dark;
+  --bg: #06080b;
+  --grid-line: rgba(120, 160, 140, 0.055);
+  --grid-line-strong: rgba(120, 170, 145, 0.09);
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+* {
+  border-color: theme("colors.line.DEFAULT");
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Sticky navbar offset for anchor jumps */
+  scroll-padding-top: 96px;
+}
+
+body {
+  background-color: var(--bg);
+  color: theme("colors.fog.DEFAULT");
+  font-family: theme("fontFamily.body");
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(74, 222, 128, 0.28);
+  color: #f2fff6;
+}
+
+/* Slim dark scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.25) transparent;
+}
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.4);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Accessible focus ring, everywhere */
+:focus-visible {
+  outline: 2px solid theme("colors.grass.400");
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==================================================================
+   Component classes
+   ================================================================== */
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Frosted panel used by cards / navbar */
+  .panel {
+    @apply relative rounded-xl border border-line bg-ink-800/70 backdrop-blur-sm;
+  }
+
+  .panel-raised {
+    @apply relative rounded-xl border border-line bg-gradient-to-b from-ink-700/80 to-ink-800/80 shadow-card;
+  }
+
+  /* Monospace micro-label, e.g. "02 // SERVICES" */
+  .mono-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-fog-faint;
+  }
+
+  /* Small pixel-style chip */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-md border border-line bg-ink-700/60 px-2.5 py-1 font-mono text-[11px] tracking-wide text-fog-muted transition-colors duration-200;
+  }
+  .chip:hover {
+    @apply border-grass-400/40 text-fog;
+  }
+
+  .chip-green {
+    @apply border-grass-400/30 bg-grass-400/10 text-grass-300;
+  }
+  .chip-cyan {
+    @apply border-cyber-400/30 bg-cyber-400/10 text-cyber-300;
+  }
+  .chip-purple {
+    @apply border-arcane-400/30 bg-arcane-400/10 text-arcane-300;
+  }
+  .chip-blurple {
+    @apply border-blurple/40 bg-blurple/15 text-blurple-light;
+  }
+
+  /* Primary CTA — grass-green block feel */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-b from-grass-400 to-grass-600 px-6 py-3 font-semibold text-ink-900 shadow-glow-green-sm transition-all duration-300 ease-smooth hover:-translate-y-0.5 hover:shadow-glow-green active:translate-y-0;
+  }
+
+  /* Ghost CTA */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line-strong bg-ink-800/60 px-6 py-3 font-semibold text-fog transition-all duration-300 ease-smooth hover:-translate-y-0.5 hover:border-grass-400/50 hover:bg-ink-700/70 hover:text-grass-300 active:translate-y-0;
+  }
+
+  /* Discord CTA */
+  .btn-discord {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-b from-blurple-light to-blurple-dark px-6 py-3 font-semibold text-white shadow-glow-blurple transition-all duration-300 ease-smooth hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  /* Section heading underline — subtle grass-block gradient */
+  .title-rule {
+    @apply mt-5 h-[3px] w-16 rounded-full;
+    background-image: linear-gradient(
+      90deg,
+      theme("colors.grass.500"),
+      theme("colors.grass.400") 45%,
+      rgba(74, 222, 128, 0)
+    );
+  }
+}
+
+/* ==================================================================
+   Background layers (grid + vignette), applied to a fixed div
+   ================================================================== */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-strong) 1px, transparent 1px);
+  background-size:
+    16px 16px,
+    16px 16px,
+    64px 64px,
+    64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+}
+
+.bg-grid-soft {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Perspective floor grid under the hero character */
+.stage-floor {
+  background-image:
+    linear-gradient(rgba(74, 222, 128, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 222, 128, 0.16) 1px, transparent 1px);
+  background-size: 44px 44px;
+  transform: perspective(560px) rotateX(58deg);
+  transform-origin: center top;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
+}
+
+/* ==================================================================
+   Scroll reveal
+   ================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==================================================================
+   3D tilt card
+   ================================================================== */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tilt-card.tilting {
+  transition: none;
+}
+.tilt-glare {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(
+    420px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(74, 222, 128, 0.09),
+    transparent 55%
+  );
+}
+.tilt-card:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* ==================================================================
+   Terminal
+   ================================================================== */
+.terminal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.terminal-caret {
+  display: inline-block;
+  width: 9px;
+  height: 1.15em;
+  background: theme("colors.grass.400");
+  transform: translateY(2px);
+}
+
+/* ==================================================================
+   Pixel-crisp rendering for skin canvases
+   ================================================================== */
+.pixelated {
+  image-rendering: pixelated;
+}
+
+/* ==================================================================
+   Reduced motion — strip non-essential movement
+   ================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .tilt-card,
+  .tilt-card.tilting {
+    transform: none !important;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+  }
+}

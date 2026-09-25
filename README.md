@@ -1,6 +1,6 @@
-# ARSHU. — Minecraft Developer & SysAdmin Portfolio
+# ARIXO. — Minecraft Developer & SysAdmin Portfolio
 
-A premium, production-ready personal portfolio for **Arshu** (`ArshuPremium` on
+A premium, production-ready personal portfolio for **Arixo** (`ArshuPremium` on
 Minecraft, `adminx.in` on Discord). Dark futuristic workstation aesthetics,
 subtle Minecraft identity, and a **real-time 3D render of the owner's current
 Minecraft skin** fetched live from Mojang's public API.
@@ -46,7 +46,7 @@ component.
 
 ```ts
 export const portfolioConfig = {
-  name: "Arshu",
+  name: "Arixo",
   minecraftUsername: "ArshuPremium",
   discord: "adminx.in",
   availability: "Available for Paid Work",
